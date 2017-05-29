@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:clickable="true"
-            app:layout_behavior="com.fanggeek.agent.ui.widget.MultiBottomSheetBehavior"
+            app:layout_behavior="com.alphago.multibottomsheet.MultiBottomSheetBehavior"
             style="?attr/bottomSheetStyle"/>
 
 </android.support.design.widget.CoordinatorLayout>
