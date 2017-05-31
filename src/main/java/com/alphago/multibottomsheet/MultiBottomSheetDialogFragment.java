@@ -1,6 +1,5 @@
 package com.alphago.multibottomsheet;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 
@@ -11,7 +10,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 public class MultiBottomSheetDialogFragment extends AppCompatDialogFragment {
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public MultiBottomSheetDialog onCreateDialog(Bundle savedInstanceState) {
         return new MultiBottomSheetDialog(getContext(), getTheme());
     }
 }

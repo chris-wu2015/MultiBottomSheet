@@ -110,11 +110,12 @@ public class MultiBottomSheetDialog extends AppCompatDialog {
 
     private View wrapInBottomSheet(int layoutResId, View view, ViewGroup.LayoutParams params) {
         final CoordinatorLayout coordinator = (CoordinatorLayout) View.inflate(getContext(),
-                com.alphago.multibottomsheet.R.layout.design_bottom_sheet_dialog, null);
+                com.alphago.multibottomsheet.R.layout.design_multi_bottom_sheet_dialog, null);
         if (layoutResId != 0 && view == null) {
             view = getLayoutInflater().inflate(layoutResId, coordinator, false);
         }
-        FrameLayout bottomSheet = (FrameLayout) coordinator.findViewById(R.id.design_bottom_sheet);
+        FrameLayout bottomSheet = (FrameLayout) coordinator.findViewById(
+                com.alphago.multibottomsheet.R.id.design_bottom_sheet);
         mBehavior = MultiBottomSheetBehavior.from(bottomSheet);
         mBehavior.setBottomSheetCallback(mBottomSheetCallback);
         mBehavior.setHideable(mCancelable);
@@ -136,7 +137,7 @@ public class MultiBottomSheetDialog extends AppCompatDialog {
         ViewCompat.setAccessibilityDelegate(bottomSheet, new AccessibilityDelegateCompat() {
             @Override
             public void onInitializeAccessibilityNodeInfo(View host,
-                    AccessibilityNodeInfoCompat info) {
+                                                          AccessibilityNodeInfoCompat info) {
                 super.onInitializeAccessibilityNodeInfo(host, info);
                 if (mCancelable) {
                     info.addAction(AccessibilityNodeInfoCompat.ACTION_DISMISS);
@@ -192,7 +193,7 @@ public class MultiBottomSheetDialog extends AppCompatDialog {
             = new MultiBottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet,
-                @BottomSheetBehavior.State int newState) {
+                                   @BottomSheetBehavior.State int newState) {
             if (newState == MultiBottomSheetBehavior.STATE_HIDDEN) {
                 cancel();
             }
@@ -203,4 +204,7 @@ public class MultiBottomSheetDialog extends AppCompatDialog {
         }
     };
 
+    public void setPeekHeight(int peekHeight) {
+        mBehavior.setPeekHeight(peekHeight);
+    }
 }

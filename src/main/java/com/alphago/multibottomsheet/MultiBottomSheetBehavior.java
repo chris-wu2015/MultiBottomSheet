@@ -303,18 +303,15 @@ public class MultiBottomSheetBehavior<V extends View> extends CoordinatorLayout.
                 }
                 mIgnoreEvents = mActivePointerId == MotionEvent.INVALID_POINTER_ID &&
                         !parent.isPointInChildBounds(child, initialX, mInitialY);
-                System.out.println("InterceptTouchEvent.mIgnoreEvents=" + mIgnoreEvents);
                 break;
         }
         if (!mIgnoreEvents && mViewDragHelper.shouldInterceptTouchEvent(event)) {
-            System.out.println("viewDragHelper.shouldInterceptTouchEvent=" + true);
             return true;
         }
         // We have to handle cases that the ViewDragHelper does not capture the bottom sheet because
         // it is not the top most view of its parent. This is not necessary when the touch event is
         // happening over the scrolling content as nested scrolling logic handles that case.
-        View scroll = mNestedScrollingChildRef.get();
-        System.out.println("scrollView=" + scroll);
+        View scroll = mNestedScrollingChildRef != null ? mNestedScrollingChildRef.get() : null;
         return action == MotionEvent.ACTION_MOVE && scroll != null &&
                 !mIgnoreEvents && mState != STATE_DRAGGING &&
                 !parent.isPointInChildBounds(scroll, (int) event.getX(), (int) event.getY()) &&
@@ -341,11 +338,8 @@ public class MultiBottomSheetBehavior<V extends View> extends CoordinatorLayout.
         mVelocityTracker.addMovement(event);
         // The ViewDragHelper tries to capture only the top-most View. We have to explicitly tell it
         // to capture the bottom sheet in case it is not captured and the touch slop is passed.
-        System.out.println("ignore = " + !mIgnoreEvents);
         if (action == MotionEvent.ACTION_MOVE && !mIgnoreEvents) {
-            System.out.println("滑动");
             if (Math.abs(mInitialY - event.getY()) > mViewDragHelper.getTouchSlop()) {
-                System.out.println("ViewDragHelper滑动");
                 mViewDragHelper.captureChildView(child, event.getPointerId(event.getActionIndex()));
             }
         }
